@@ -1,20 +1,23 @@
-
+import 'package:deep_linking/feature/home/view/home_screen.dart';
+import 'package:deep_linking/feature/product/view/product_screen.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
-  // Get routes name here.......
-  static const String splash = '/splash';
-  static const String onboarding = '/onboarding';
+  // Route names
+  static const String home = '/home';
+  static const String product = '/product';
 
-
-
-  // Get routes here.......
+  // Routes list
   static List<GetPage> routes = [
-    // GetPage(
-    //   name: splash,
-    //   page: () => SplashScreen(),
-    //   transition: Transition.leftToRight,
-    // ),
-
+    GetPage(
+      name: home,
+      page: () => const HomeScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: product,
+      page: () => const ProductScreen(),
+      transition: Transition.rightToLeft,
+    ),
   ];
 }
