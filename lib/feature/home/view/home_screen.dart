@@ -8,18 +8,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
+        child: Text(
               "This is home screen...........",
               style: globalTextStyle(
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
               ),
-            ),
-          ],
         ),
       ),
     );
