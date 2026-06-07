@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:app_links/app_links.dart';
 import 'package:deep_linking/core/route/routes.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeepLinkService {
@@ -48,14 +49,15 @@ class DeepLinkService {
     }
 
     // myapp://product → ProductScreen
-    if (uri.host == 'product') {
-      Get.toNamed(AppRoutes.product);
-    }
-
-    // আরো screen add করতে পারো এখানে
-    // else if (uri.host == 'order') {
-    //   Get.toNamed(AppRoutes.order);
-    // }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (uri.host == 'product') {
+        Get.toNamed(AppRoutes.product);
+      }
+      // আরো screen add করতে পারো এখানে
+      // else if (uri.host == 'order') {
+      //   Get.toNamed(AppRoutes.order);
+      // }
+    });
   }
 
   void dispose() {

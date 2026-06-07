@@ -14,14 +14,12 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform
   );
 
-  // Deep Link Service Initialize
   await DeepLinkService.instance.initialize();
   await FirebaseNotificationService.instance.initialize();
   const AndroidInitializationSettings initializationSettingsAndroid =
   AndroidInitializationSettings('@mipmap/ic_launcher');
   const InitializationSettings initializationSettings =
   InitializationSettings(android: initializationSettingsAndroid);
-  //await flutterLocalNotificationsPlugin.initialize(settings: initializationSettings);
   await flutterLocalNotificationsPlugin.initialize(
     settings: initializationSettings,
     // Foreground notification click handle
