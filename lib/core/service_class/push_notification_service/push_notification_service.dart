@@ -1,4 +1,5 @@
 import 'package:deep_linking/core/service_class/deep_link_service/deep_link_service.dart';
+import 'package:deep_linking/feature/notification_navigator.dart';
 import 'package:deep_linking/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -52,7 +53,7 @@ class FirebaseNotificationService {
             ),
           ),
           // Deep link payload হিসেবে পাঠাও
-          payload: message.data['deep_link'] ?? '',
+          payload: (message.data['deep_link'] ?? '').trim(),
         );
       }
     });
@@ -73,10 +74,9 @@ class FirebaseNotificationService {
     RemoteMessage? initialMessage = await _firebaseMessaging.getInitialMessage();
     if (initialMessage != null) {
       if (kDebugMode) print("Terminated message: ${initialMessage.data}");
-      // WidgetsBinding দিয়ে delay দাও যেন app ready হয়
-      Future.delayed(const Duration(seconds: 3), () {
-        _navigateFromNotification(initialMessage.data);
-      });
+
+      // ✅ Flag store করো, delay দিও না
+      NotificationNavigator.pendingDeepLink = initialMessage.data['deep_link']?.trim();
     }
 
     // Token
@@ -87,7 +87,7 @@ class FirebaseNotificationService {
   void _navigateFromNotification(Map<String, dynamic> data) {
     final String? deepLink = data['deep_link'];
     if (deepLink != null && deepLink.isNotEmpty) {
-      final Uri uri = Uri.parse(deepLink);
+      final Uri uri = Uri.parse(deepLink.trim());
       DeepLinkService.instance.handleDeepLink(uri);
     }
   }

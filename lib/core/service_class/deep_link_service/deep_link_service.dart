@@ -18,7 +18,9 @@ class DeepLinkService {
       final Uri? initialLink = await _appLinks.getInitialLink();
       if (initialLink != null) {
         if (kDebugMode) print("Initial Deep Link: $initialLink");
-        _handleDeepLink(initialLink);
+        Future.delayed(const Duration(milliseconds: 500), () {
+          _handleDeepLink(initialLink);
+        });
       }
     } catch (e) {
       if (kDebugMode) print("Initial Deep Link Error: $e");
@@ -50,7 +52,8 @@ class DeepLinkService {
 
     // myapp://product → ProductScreen
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (uri.host == 'product') {
+      final String hosT = Uri.decodeComponent(uri.host);
+      if (hosT == 'product') {
         Get.toNamed(AppRoutes.product);
       }
       // আরো screen add করতে পারো এখানে
